@@ -146,6 +146,7 @@ function GeneratorWorkspace() {
             </div>
           </div>
 
+          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Sections</h3>
               <button 
@@ -217,8 +218,7 @@ function GeneratorWorkspace() {
           </div>
         </div>
 
-
-        <div className="p-4 border-t border-border bg-muted/30">
+        <div className="p-4 border-t border-border bg-muted/30 mt-auto">
           <div className="relative">
             <textarea 
               placeholder="Refine your website..."
@@ -312,4 +312,3 @@ function GeneratorWorkspace() {
     </div>
   );
 }
-
