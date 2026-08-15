@@ -23,7 +23,7 @@ function GeneratorWorkspace() {
     setIsGenerating(true);
     try {
       const result = await generateWebsiteAction({ data: { prompt } });
-      setConfig(result as WebsiteConfig);
+      setConfig(result as unknown as WebsiteConfig);
     } catch (error) {
       console.error("Generation failed", error);
     } finally {
