@@ -146,14 +146,28 @@ function GeneratorWorkspace() {
             </div>
           </div>
 
-          <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Sections</h3>
-              <button className="flex items-center gap-1 text-[10px] text-primary hover:underline font-medium">
+              <button 
+                onClick={() => {
+                  if (!config) return;
+                  const newId = `section-${Date.now()}`;
+                  setConfig({
+                    ...config,
+                    sections: [...config.sections, {
+                      id: newId,
+                      type: 'features',
+                      blockId: 'features-01',
+                      content: { title: 'New Section', items: [] }
+                    }]
+                  });
+                }}
+                className="flex items-center gap-1 text-[10px] text-primary hover:underline font-medium"
+              >
                 <Plus size={10} /> Add Block
               </button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 pb-20">
               {config?.sections.map((section, idx) => (
                 <div key={section.id} className="group p-3 rounded-lg border border-border bg-background hover:border-primary/50 transition-all space-y-2">
                   <div className="flex items-center justify-between">
@@ -202,6 +216,7 @@ function GeneratorWorkspace() {
             </div>
           </div>
         </div>
+
 
         <div className="p-4 border-t border-border bg-muted/30">
           <div className="relative">
