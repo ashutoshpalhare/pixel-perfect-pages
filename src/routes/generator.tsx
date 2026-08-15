@@ -97,7 +97,11 @@ function GeneratorWorkspace() {
       const newSections = [...prev.sections];
       const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
       if (targetIdx < 0 || targetIdx >= newSections.length) return prev;
-      [newSections[idx], newSections[targetIdx]] = [newSections[targetIdx], newSections[idx]];
+      
+      const temp = newSections[idx];
+      newSections[idx] = newSections[targetIdx]!;
+      newSections[targetIdx] = temp!;
+      
       return { ...prev, sections: newSections };
     });
   };
