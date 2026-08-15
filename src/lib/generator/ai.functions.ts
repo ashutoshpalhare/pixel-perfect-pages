@@ -18,7 +18,7 @@ const WebsiteStrategySchema = z.object({
 });
 
 export const generateWebsiteAction = createServerFn({ method: "POST" })
-  .input(z.object({ prompt: z.string() }))
+  .validator((data: { prompt: string }) => z.object({ prompt: z.string() }).parse(data))
   .handler(async ({ data }) => {
     // In a real implementation, this would call the AI Gateway
     // For now, we simulate a sophisticated response based on the prompt

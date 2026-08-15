@@ -13,7 +13,7 @@ function Index() {
     if (prompt.trim()) {
       navigate({ to: "/generator", search: { prompt } });
     } else {
-      navigate({ to: "/generator" });
+      navigate({ to: "/generator", search: { prompt: "" } });
     }
   };
 

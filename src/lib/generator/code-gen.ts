@@ -115,14 +115,14 @@ function renderSectionHTML(section: Section): string {
     case 'hero':
       return `
 <section class="hero">
-  <h1>${section.content.title}</h1>
-  <p>${section.content.subtitle}</p>
-  <a href="#" class="btn-primary">${section.content.cta}</a>
+  <h1>${section.content['title']}</h1>
+  <p>${section.content['subtitle']}</p>
+  <a href="#" class="btn-primary">${section.content['cta']}</a>
 </section>`;
     case 'features':
       return `
 <section class="features">
-  ${(section.content.items || []).map((item: any) => `
+  ${(section.content['items'] || []).map((item: any) => `
     <div class="feature-card">
       <h3>${item.title}</h3>
       <p>${item.description}</p>

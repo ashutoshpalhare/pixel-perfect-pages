@@ -7,7 +7,7 @@ import { Loader2, Monitor, Tablet, Smartphone, Download, Send, ChevronRight } fr
 
 export const Route = createFileRoute("/generator")({
   validateSearch: (search: Record<string, unknown>) => ({
-    prompt: (search.prompt as string) || "",
+    prompt: (search['prompt'] as string) || "",
   }),
   component: GeneratorWorkspace,
 });
