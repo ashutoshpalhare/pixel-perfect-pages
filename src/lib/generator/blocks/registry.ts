@@ -79,7 +79,41 @@ export const BLOCK_REGISTRY: BlockTemplate[] = [
 </section>`,
     // Custom logic will be needed to render ITEMS
   },
+  {
+    id: 'features-02',
+    category: 'features',
+    source: 'tailblocks',
+    layout: 'alternating',
+    styles: ['minimal'],
+    themes: ['light', 'dark'],
+    bestFor: ['startup', 'product'],
+    html: `
+<section class="text-foreground body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    {{ITEMS}}
+  </div>
+</section>`,
+  },
   
+  // --- TESTIMONIALS ---
+  {
+    id: 'testimonials-01',
+    category: 'testimonials',
+    source: 'tailblocks',
+    layout: 'grid-3',
+    styles: ['modern'],
+    themes: ['light', 'dark'],
+    bestFor: ['saas', 'services'],
+    html: `
+<section class="text-foreground body-font">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-wrap -m-4">
+      {{ITEMS}}
+    </div>
+  </div>
+</section>`
+  },
+
   // --- PRICING ---
   {
     id: 'pricing-01',
