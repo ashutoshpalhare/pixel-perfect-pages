@@ -1,9 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
-import { generateWebsiteAction } from "../lib/generator/ai.functions";
+import { generateWebsiteAction, regenerateSectionAction } from "../lib/generator/ai.functions";
 import { generateHTML, generateCSS, generateJS } from "../lib/generator/code-gen";
 import { WebsiteConfig } from "../types/website";
-import { Loader2, Monitor, Tablet, Smartphone, Download, Send, ChevronRight } from "lucide-react";
+import { Loader2, Monitor, Tablet, Smartphone, Download, Send, ChevronRight, RefreshCcw, Trash2, ArrowUp, ArrowDown, Plus } from "lucide-react";
 import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
@@ -73,13 +73,55 @@ function GeneratorWorkspace() {
     saveAs(blob, `${config.name.toLowerCase().replace(/\s+/g, "-")}-website.zip`);
   };
 
+  const handleRegenerateSection = async (sectionId: string, category: string) => {
+    if (!config) return;
+    try {
+      const newSection = await regenerateSectionAction({ 
+        data: { sectionId, category, designSystem: config.designSystem } 
+      });
+      setConfig(prev => {
+        if (!prev) return null;
+        return {
+          ...prev,
+          sections: prev.sections.map(s => s.id === sectionId ? newSection as any : s)
+        };
+      });
+    } catch (error) {
+      console.error("Section regeneration failed", error);
+    }
+  };
+
+  const handleMoveSection = (idx: number, direction: 'up' | 'down') => {
+    setConfig(prev => {
+      if (!prev) return null;
+      const newSections = [...prev.sections];
+      const targetIdx = direction === 'up' ? idx - 1 : idx + 1;
+      if (targetIdx < 0 || targetIdx >= newSections.length) return prev;
+      
+      const temp = newSections[idx];
+      newSections[idx] = newSections[targetIdx]!;
+      newSections[targetIdx] = temp!;
+      
+      return { ...prev, sections: newSections };
+    });
+  };
+
+  const handleDeleteSection = (idx: number) => {
+    setConfig(prev => {
+      if (!prev) return null;
+      return { ...prev, sections: prev.sections.filter((_, i) => i !== idx) };
+    });
+  };
+
   return (
     <div className="flex h-screen bg-background overflow-hidden font-sans">
       {/* Sidebar: Brief & Sections */}
       <aside className="w-80 border-r border-border bg-card flex flex-col overflow-hidden">
-        <div className="p-4 border-b border-border flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold">W</div>
-          <span className="font-bold tracking-tight text-lg">WebGen AI</span>
+        <div className="p-4 border-b border-border flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold">W</div>
+            <span className="font-bold tracking-tight text-lg">WebGen AI</span>
+          </div>
         </div>
         
         <div className="flex-1 overflow-y-auto p-4 space-y-6">
@@ -94,12 +136,12 @@ function GeneratorWorkspace() {
                   className="w-full p-2 text-sm rounded-md border border-border bg-background focus:ring-1 focus:ring-primary outline-none transition-all" 
                 />
               </div>
-              <div>
-                <label className="text-xs font-medium text-muted-foreground mb-1 block">Style Direction</label>
-                <div className="grid grid-cols-2 gap-2">
-                  <button className="p-2 text-xs rounded border border-primary bg-primary/5 text-primary">Modern SaaS</button>
-                  <button className="p-2 text-xs rounded border border-border hover:bg-muted transition-colors">Neo-brutalist</button>
-                </div>
+              <div className="flex items-center gap-2 pt-1">
+                <div 
+                  className="w-6 h-6 rounded border border-border" 
+                  style={{ backgroundColor: config?.designSystem.primaryColor }}
+                />
+                <span className="text-xs text-muted-foreground font-medium uppercase">{config?.designSystem.primaryColor}</span>
               </div>
             </div>
           </div>
@@ -107,16 +149,64 @@ function GeneratorWorkspace() {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Sections</h3>
-              <button className="text-[10px] text-primary hover:underline font-medium">Add New</button>
+              <button 
+                onClick={() => {
+                  if (!config) return;
+                  const newId = `section-${Date.now()}`;
+                  setConfig({
+                    ...config,
+                    sections: [...config.sections, {
+                      id: newId,
+                      type: 'features',
+                      blockId: 'features-01',
+                      content: { title: 'New Section', items: [] }
+                    }]
+                  });
+                }}
+                className="flex items-center gap-1 text-[10px] text-primary hover:underline font-medium"
+              >
+                <Plus size={10} /> Add Block
+              </button>
             </div>
-            <div className="space-y-2">
+            <div className="space-y-2 pb-20">
               {config?.sections.map((section, idx) => (
-                <div key={idx} className="group p-3 rounded-lg border border-border bg-background hover:border-primary/50 transition-all flex items-center justify-between cursor-move">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
-                    <span className="text-sm font-medium capitalize">{section.type}</span>
+                <div key={section.id} className="group p-3 rounded-lg border border-border bg-background hover:border-primary/50 transition-all space-y-2">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary/50" />
+                      <span className="text-sm font-medium capitalize">{section.type}</span>
+                    </div>
+                    <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <button 
+                        onClick={() => handleMoveSection(idx, 'up')}
+                        disabled={idx === 0}
+                        className="p-1 hover:bg-muted rounded text-muted-foreground disabled:opacity-30"
+                      >
+                        <ArrowUp size={12} />
+                      </button>
+                      <button 
+                        onClick={() => handleMoveSection(idx, 'down')}
+                        disabled={idx === (config.sections.length - 1)}
+                        className="p-1 hover:bg-muted rounded text-muted-foreground disabled:opacity-30"
+                      >
+                        <ArrowDown size={12} />
+                      </button>
+                    </div>
                   </div>
-                  <ChevronRight size={14} className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button 
+                      onClick={() => handleRegenerateSection(section.id, section.type)}
+                      className="flex-1 flex items-center justify-center gap-1 py-1 text-[10px] font-medium rounded border border-border hover:bg-muted text-muted-foreground"
+                    >
+                      <RefreshCcw size={10} /> Variants
+                    </button>
+                    <button 
+                      onClick={() => handleDeleteSection(idx)}
+                      className="p-1 text-destructive hover:bg-destructive/10 rounded"
+                    >
+                      <Trash2 size={12} />
+                    </button>
+                  </div>
                 </div>
               ))}
               {!config && !isGenerating && (
@@ -128,7 +218,7 @@ function GeneratorWorkspace() {
           </div>
         </div>
 
-        <div className="p-4 border-t border-border bg-muted/30">
+        <div className="p-4 border-t border-border bg-muted/30 mt-auto">
           <div className="relative">
             <textarea 
               placeholder="Refine your website..."
@@ -222,4 +312,3 @@ function GeneratorWorkspace() {
     </div>
   );
 }
-
