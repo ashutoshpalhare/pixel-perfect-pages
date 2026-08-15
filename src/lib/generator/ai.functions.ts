@@ -1,6 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import { WebsiteConfig } from "../types/website";
+import { WebsiteConfig } from "../../types/website";
 
 export const generateWebsiteAction = createServerFn({ method: "POST" })
   .validator((data: { prompt: string }) => z.object({ prompt: z.string() }).parse(data))
