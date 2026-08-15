@@ -26,7 +26,8 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
     const isDark = data.prompt.toLowerCase().includes('dark') || data.prompt.toLowerCase().includes('futuristic');
     
     return {
-      name: "Generated Project",
+      name: "Nova AI",
+      description: "AI-powered analytics platform for modern teams.",
       type: "saas",
       personality: ["Modern", "Professional"],
       designSystem: {
