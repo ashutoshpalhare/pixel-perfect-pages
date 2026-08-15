@@ -31,8 +31,8 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
         type: "hero",
         blockId: "hero-01",
         content: {
-          title: "Intelligent Web Solutions for the Future",
-          subtitle: "Build, deploy and scale your next big idea with our AI-powered platform designed for high-growth teams.",
+          title: prompt.includes('sentinelx') ? "Advanced AI Cybersecurity for the Modern Enterprise" : "Intelligent Web Solutions for the Future",
+          subtitle: "SentinelX provides autonomous threat detection and response, powered by next-generation neural networks.",
           cta: "Start Free Trial",
           secondary_cta: "View Demo"
         }
@@ -42,13 +42,25 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
         type: "features",
         blockId: "features-01",
         content: {
-          title: "Why Choose Our Platform?",
-          subtitle: "Everything you need to succeed in the modern digital landscape.",
+          title: "Enterprise-Grade Security",
+          subtitle: "Our platform offers comprehensive protection against evolving cyber threats.",
           cta: "See all features",
           items: [
-            { title: "AI Powered", description: "Smart automation for your repetitive tasks.", icon: "zap" },
-            { title: "Scale Fast", description: "Infrastructure that grows with your user base.", icon: "trending-up" },
-            { title: "Global CDN", description: "Serve your content with lightning speed anywhere.", icon: "globe" }
+            { title: "Threat Intel", description: "Real-time global threat intelligence feeds.", icon: "shield" },
+            { title: "Auto-Response", description: "Instant remediation of security incidents.", icon: "zap" },
+            { title: "Deep Analysis", description: "Packet-level inspection using behavioral AI.", icon: "search" }
+          ]
+        }
+      },
+      {
+        id: "testimonials-section",
+        type: "testimonials",
+        blockId: "testimonials-01",
+        content: {
+          items: [
+            { name: "Sarah Chen", role: "CISO at TechCorp", quote: "SentinelX transformed our security posture in weeks.", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" },
+            { name: "Mark Wilson", role: "Security Architect", quote: "The most intuitive AI security platform I've used.", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" },
+            { name: "Elena Rodriguez", role: "CTO at SecureFlow", quote: "Unparalleled accuracy in threat detection.", avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" }
           ]
         }
       },
@@ -57,12 +69,12 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
         type: "pricing",
         blockId: "pricing-01",
         content: {
-          title: "Simple, Transparent Pricing",
-          subtitle: "Choose the plan that fits your current needs and scale when you are ready.",
+          title: "Scale Your Security",
+          subtitle: "Flexible plans for teams of all sizes.",
           items: [
-            { name: "Starter", price: "$0", features: ["Up to 3 projects", "Basic analytics", "Community support"] },
-            { name: "Pro", price: "$49", features: ["Unlimited projects", "Advanced analytics", "Priority support"], premium: true },
-            { name: "Enterprise", price: "Custom", features: ["Custom infrastructure", "Dedicated manager", "24/7 phone support"] }
+            { name: "Standard", price: "$299", features: ["10 Endpoints", "24/7 Monitoring", "Email Alerts"] },
+            { name: "Professional", price: "$899", features: ["100 Endpoints", "Advanced Response", "Phone Support"], premium: true },
+            { name: "Enterprise", price: "Custom", features: ["Unlimited Endpoints", "Dedicated SOC", "SLA Guarantees"] }
           ]
         }
       },
@@ -71,8 +83,8 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
         type: "footer",
         blockId: "footer-01",
         content: {
-          name: "SentinX",
-          handle: "sentinx_ai"
+          name: "SentinelX",
+          handle: "sentinelx_cyber"
         }
       }
     ];
