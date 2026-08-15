@@ -136,8 +136,27 @@ function renderSectionHTML(section: Section, config: WebsiteConfig): string {
       // Handle list items (features, pricing, etc.)
       const items = section.content['items'];
       if (items && Array.isArray(items)) {
-        const itemsHtml = items.map((item: any) => {
+        const itemsHtml = items.map((item: any, idx: number) => {
           if (section.type === 'features') {
+            if (section.blockId === 'features-02') {
+              const isEven = idx % 2 === 0;
+              return `
+                <div class="flex relative ${idx !== items.length - 1 ? 'pb-20' : ''} sm:items-center md:w-2/3 mx-auto">
+                  <div class="h-full w-6 absolute inset-0 flex items-center justify-center">
+                    <div class="h-full w-1 bg-muted pointer-events-none"></div>
+                  </div>
+                  <div class="flex-shrink-0 w-6 h-6 rounded-full mt-10 sm:mt-0 inline-flex items-center justify-center bg-primary text-white relative z-10 title-font font-medium text-sm">${idx + 1}</div>
+                  <div class="flex-grow md:pl-8 pl-6 flex sm:items-center items-start flex-col sm:flex-row">
+                    <div class="flex-shrink-0 w-24 h-24 bg-muted text-primary rounded-full inline-flex items-center justify-center">
+                      <i data-lucide="${item.icon || 'star'}"></i>
+                    </div>
+                    <div class="flex-grow sm:pl-6 mt-6 sm:mt-0">
+                      <h2 class="font-bold title-font text-foreground mb-1 text-xl">${item.title}</h2>
+                      <p class="leading-relaxed text-muted-foreground">${item.description}</p>
+                    </div>
+                  </div>
+                </div>`;
+            }
             return `
               <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
                 <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-muted text-primary mb-5 flex-shrink-0">
@@ -146,6 +165,18 @@ function renderSectionHTML(section: Section, config: WebsiteConfig): string {
                 <div class="flex-grow">
                   <h2 class="text-foreground text-lg title-font font-bold mb-3">${item.title}</h2>
                   <p class="leading-relaxed text-base text-muted-foreground">${item.description}</p>
+                </div>
+              </div>`;
+          }
+          if (section.type === 'testimonials') {
+            return `
+              <div class="lg:w-1/3 lg:mb-0 mb-6 p-4">
+                <div class="h-full text-center">
+                  <img alt="testimonial" class="w-20 h-20 mb-8 object-cover object-center rounded-full inline-block border-2 border-muted bg-muted" src="${item.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80'}">
+                  <p class="leading-relaxed text-muted-foreground italic">"${item.quote}"</p>
+                  <span class="inline-block h-1 w-10 rounded bg-primary mt-6 mb-4"></span>
+                  <h2 class="text-foreground font-bold title-font tracking-wider text-sm uppercase">${item.name}</h2>
+                  <p class="text-muted-foreground">${item.role}</p>
                 </div>
               </div>`;
           }
