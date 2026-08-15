@@ -134,8 +134,9 @@ function renderSectionHTML(section: Section, config: WebsiteConfig): string {
       html = html.replaceAll('{{HANDLE}}', config.name.toLowerCase().replace(/\s+/g, ''));
 
       // Handle list items (features, pricing, etc.)
-      if (section.content.items && Array.isArray(section.content.items)) {
-        const itemsHtml = section.content.items.map((item: any) => {
+      const items = section.content['items'];
+      if (items && Array.isArray(items)) {
+        const itemsHtml = items.map((item: any) => {
           if (section.type === 'features') {
             return `
               <div class="p-4 md:w-1/3 flex flex-col text-center items-center">
