@@ -10,15 +10,24 @@ export const Route = createFileRoute("/")({
 // IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="flex min-h-screen flex-col items-center justify-center p-6 bg-background">
+      <div className="w-full max-w-2xl text-center space-y-8">
+        <h1 className="text-5xl font-extrabold tracking-tighter text-foreground">
+          Build a website from an idea.
+        </h1>
+        <p className="text-xl text-muted-foreground">
+          Describe your product, business or service and generate a polished, responsive landing page in seconds.
+        </p>
+        <div className="space-y-4">
+          <textarea
+            className="w-full h-32 p-4 rounded-xl border border-border bg-card text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all"
+            placeholder="Create a premium landing page for an AI-powered fitness coaching startup targeting busy professionals..."
+          />
+          <button className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all">
+            Start Building
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
