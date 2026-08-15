@@ -4,6 +4,8 @@ import { generateWebsiteAction } from "../lib/generator/ai.functions";
 import { generateHTML, generateCSS, generateJS } from "../lib/generator/code-gen";
 import { WebsiteConfig } from "../types/website";
 import { Loader2, Monitor, Tablet, Smartphone, Download, Send, ChevronRight } from "lucide-react";
+import JSZip from "jszip";
+import { saveAs } from "file-saver";
 
 export const Route = createFileRoute("/generator")({
   validateSearch: (search: Record<string, unknown>) => ({
@@ -57,6 +59,19 @@ function GeneratorWorkspace() {
       }
     }
   }, [config, viewport]);
+
+  const handleExport = async () => {
+    if (!config) return;
+
+    const zip = new JSZip();
+    zip.file("index.html", generateHTML(config));
+    zip.file("style.css", generateCSS(config));
+    zip.file("script.js", generateJS(config));
+    zip.file("README.md", `# ${config.name}\n\nGenerated with WebGen AI.\n\nTo view this site, simply open index.html in any browser.`);
+
+    const blob = await zip.generateAsync({ type: "blob" });
+    saveAs(blob, `${config.name.toLowerCase().replace(/\s+/g, "-")}-website.zip`);
+  };
 
   return (
     <div className="flex h-screen bg-background overflow-hidden font-sans">
@@ -154,7 +169,11 @@ function GeneratorWorkspace() {
             <button className="px-4 py-1.5 rounded-lg border border-border hover:bg-muted text-sm font-medium transition-colors">
               Code view
             </button>
-            <button className="px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-lg hover:shadow-primary/20 hover:bg-primary/90 transition-all flex items-center gap-2">
+            <button 
+              onClick={handleExport}
+              disabled={!config}
+              className="px-4 py-1.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium shadow-lg hover:shadow-primary/20 hover:bg-primary/90 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
               <Download size={16} />
               Export
             </button>
