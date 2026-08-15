@@ -38,6 +38,7 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
       },
       sections: [
         {
+          id: "1",
           type: "hero",
           content: {
             title: "Revolutionize Your Workflow with AI",
@@ -46,6 +47,7 @@ export const generateWebsiteAction = createServerFn({ method: "POST" })
           }
         },
         {
+          id: "2",
           type: "features",
           content: {
             items: [
