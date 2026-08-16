@@ -132,9 +132,9 @@ export const BLOCK_REGISTRY: BlockTemplate[] = [
     </div>
     <div class="ds-card mt-16 max-w-5xl mx-auto p-3">
       <div class="flex gap-1.5 px-2 pb-3">
-        <span class="w-2.5 h-2.5 rounded-full" style="background:var(--primary)"></span>
-        <span class="w-2.5 h-2.5 rounded-full" style="background:var(--accent)"></span>
-        <span class="w-2.5 h-2.5 rounded-full" style="background:var(--muted-foreground)"></span>
+        <span class="w-2.5 h-2.5 rounded-full opacity-60" style="background:var(--primary)"></span>
+        <span class="w-2.5 h-2.5 rounded-full opacity-60" style="background:var(--accent)"></span>
+        <span class="w-2.5 h-2.5 rounded-full opacity-30" style="background:var(--muted-foreground)"></span>
       </div>
       <img class="ds-media w-full" loading="lazy" alt="{{IMAGE_ALT}}" src="{{IMAGE}}">
     </div>
