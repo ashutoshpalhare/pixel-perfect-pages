@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { codeToHtml } from "shiki";
 import {
   generateWebsiteAction,
   refineSectionAction,
@@ -284,7 +285,7 @@ function GeneratorWorkspace() {
     <div className="flex h-screen flex-col overflow-hidden lg:flex-row">
       {/* --------------------------------------------------------- Sidebar */}
       <aside
-        className={`${sidebarOpen ? "flex" : "hidden"} absolute inset-0 z-30 w-full flex-col border-r border-border bg-sidebar lg:static lg:z-auto lg:flex lg:w-[340px]`}
+        className={`${sidebarOpen ? "flex" : "hidden"} absolute inset-0 z-30 w-full flex-col border-r border-border bg-background lg:static lg:z-auto lg:flex lg:w-[340px] shadow-2xl lg:shadow-none`}
       >
         <div className="flex items-center justify-between border-b border-border p-4">
           <Link to="/" className="flex items-center gap-2 font-semibold">
@@ -716,11 +717,23 @@ function CodeViewer({
   onCopied: (m: string) => void;
 }) {
   const [tab, setTab] = useState<"html" | "css" | "js">("html");
-  const [query, setQuery] = useState("");
+  const [highlighted, setHighlighted] = useState<string>("");
   const source = code[tab];
-  const lines = source.split("\n");
-  const matches = query ? lines.filter((l) => l.toLowerCase().includes(query.toLowerCase())) : lines;
   const filename = tab === "html" ? "index.html" : tab === "css" ? "style.css" : "script.js";
+
+  useEffect(() => {
+    let active = true;
+    const lang = tab === "js" ? "javascript" : tab;
+    codeToHtml(source, {
+      lang,
+      theme: "vitesse-dark",
+    }).then((html) => {
+      if (active) setHighlighted(html);
+    });
+    return () => {
+      active = false;
+    };
+  }, [source, tab]);
 
   const download = () => {
     const blob = new Blob([source], { type: "text/plain;charset=utf-8" });
@@ -728,62 +741,79 @@ function CodeViewer({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-background/95 backdrop-blur">
-      <div className="flex flex-wrap items-center gap-2 border-b border-border p-3">
-        <div className="flex rounded-lg border border-border bg-muted p-1">
-          {(["html", "css", "js"] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={`rounded-md px-3 py-1 text-xs font-semibold uppercase ${tab === t ? "bg-card text-primary" : "text-muted-foreground"}`}
-            >
-              {t}
-            </button>
-          ))}
+    <div className="fixed inset-0 z-50 flex flex-col bg-background/98 backdrop-blur-xl">
+      <div className="flex flex-wrap items-center justify-between border-b border-border bg-card/50 px-6 py-4">
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2">
+            <span className="flex size-6 items-center justify-center rounded bg-primary text-[10px] font-bold text-primary-foreground">W</span>
+            <span className="text-sm font-semibold tracking-tight">Code Inspector</span>
+          </div>
+          <div className="flex gap-1 rounded border border-border bg-muted p-1">
+            {(["html", "css", "js"] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => setTab(t)}
+                className={`rounded px-3 py-1 text-[10px] font-bold uppercase tracking-wider transition-colors ${tab === t ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
         </div>
-        <label className="relative flex items-center">
-          <Search className="pointer-events-none absolute left-2 size-3.5 text-muted-foreground" />
-          <input
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search code"
-            className="w-40 rounded-md border border-input bg-background py-1.5 pl-7 pr-2 text-xs outline-none sm:w-56"
-          />
-        </label>
-        <span className="text-xs text-muted-foreground">
-          {filename} · {lines.length} lines{query && ` · ${matches.length} matching`}
-        </span>
-        <div className="ml-auto flex items-center gap-2">
+
+        <div className="flex items-center gap-3">
+          <span className="hidden text-[11px] font-medium text-muted-foreground lg:block">
+            {filename} · {source.split("\n").length} lines
+          </span>
+          <div className="h-4 w-px bg-border hidden lg:block" />
           <button
             onClick={async () => {
               await navigator.clipboard.writeText(source);
               onCopied(`${filename} copied`);
             }}
-            className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted"
+            className="inline-flex items-center gap-2 rounded border border-border bg-card px-3 py-1.5 text-[11px] font-semibold transition-all hover:bg-muted active:scale-95"
           >
             <Copy className="size-3.5" /> Copy
           </button>
-          <button onClick={download} className="inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-1.5 text-xs hover:bg-muted">
+          <button
+            onClick={download}
+            className="inline-flex items-center gap-2 rounded border border-border bg-card px-3 py-1.5 text-[11px] font-semibold transition-all hover:bg-muted active:scale-95"
+          >
             <Download className="size-3.5" /> Download
           </button>
-          <button onClick={onClose} className="rounded-md p-1.5 hover:bg-muted" aria-label="Close code viewer">
-            <X className="size-4" />
+          <button
+            onClick={onClose}
+            className="ml-2 rounded-full p-2 text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
+            aria-label="Close code viewer"
+          >
+            <X className="size-5" />
           </button>
         </div>
       </div>
-      <pre className="flex-1 overflow-auto p-4 text-[11px] leading-relaxed">
-        <code>
-          {matches.map((line, i) => (
-            <span key={i} className="block whitespace-pre-wrap">
-              <span className="mr-3 inline-block w-8 select-none text-right text-muted-foreground/60">{i + 1}</span>
-              <span className={/^\s*[<{.@]|function|const/.test(line) ? "text-primary" : undefined}>{line}</span>
-            </span>
-          ))}
-        </code>
-      </pre>
-      <p className="border-t border-border p-2 text-center text-[11px] text-muted-foreground">
-        {name} — standalone HTML, CSS and JavaScript. No framework required.
-      </p>
+
+      <div className="flex-1 overflow-hidden relative">
+        <div className="absolute inset-0 overflow-auto p-6 scrollbar-thin scrollbar-thumb-border">
+          {highlighted ? (
+            <div
+              className="shiki-container font-mono text-[13px] leading-relaxed [&>pre]:!bg-transparent [&>pre]:!p-0"
+              dangerouslySetInnerHTML={{ __html: highlighted }}
+            />
+          ) : (
+            <div className="flex h-full items-center justify-center">
+              <Loader2 className="size-6 animate-spin text-muted-foreground" />
+            </div>
+          )}
+        </div>
+      </div>
+      
+      <div className="flex items-center justify-between border-t border-border bg-card/30 px-6 py-2">
+        <div className="text-[10px] text-muted-foreground uppercase tracking-widest font-semibold">
+          Framework Agnostic · Pure Vanilla Output
+        </div>
+        <div className="text-[10px] text-muted-foreground">
+          {name.toLowerCase().replace(/\s+/g, "-")}
+        </div>
+      </div>
     </div>
   );
 }
