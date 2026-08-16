@@ -632,9 +632,9 @@ function GeneratorWorkspace() {
             <div className={`mx-auto flex flex-col ${frameWidth} transition-all duration-500`}>
               <div className="flex items-center gap-2 rounded-t-xl border border-border bg-card p-2">
                 <span className="ml-1 flex gap-1.5">
-                  <span className="size-2.5 rounded-full bg-destructive/50" />
-                  <span className="size-2.5 rounded-full bg-accent/60" />
                   <span className="size-2.5 rounded-full bg-primary/60" />
+                  <span className="size-2.5 rounded-full bg-accent/60" />
+                  <span className="size-2.5 rounded-full bg-muted-foreground/30" />
                 </span>
                 <span className="mx-auto max-w-sm flex-1 truncate rounded bg-muted px-3 py-1 text-center text-[10px] text-muted-foreground">
                   {config.name.toLowerCase().replace(/\s+/g, "")}.com

@@ -348,7 +348,9 @@ function Landing() {
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <a href={n.href} className="hover:text-foreground">{n.label}</a>
+                  <Link to={n.href as any} search={n.href === "/generator" ? { prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined } : undefined} className="hover:text-foreground">
+                    {n.label}
+                  </Link>
                 </li>
               ))}
               <li>
@@ -379,9 +381,9 @@ function WorkspaceMockup() {
     <div className="surface-panel mx-auto mt-16 max-w-5xl overflow-hidden p-0 text-left shadow-[var(--shadow-elevated)]">
       <div className="flex items-center gap-2 border-b border-border bg-card px-4 py-3">
         <span className="flex gap-1.5">
-          <span className="size-2.5 rounded-full bg-destructive/50" />
-          <span className="size-2.5 rounded-full bg-accent/60" />
           <span className="size-2.5 rounded-full bg-primary/60" />
+          <span className="size-2.5 rounded-full bg-accent/60" />
+          <span className="size-2.5 rounded-full bg-muted-foreground/30" />
         </span>
         <span className="mx-auto rounded bg-muted px-3 py-1 text-[10px] text-muted-foreground">WebGen AI — workspace</span>
       </div>
@@ -432,7 +434,7 @@ function WorkspaceMockup() {
 const PIPELINE = [
   { label: "User prompt", body: "“Create a premium dark landing page for an AI cybersecurity startup called SentinelX.”" },
   { label: "AI planning", body: "Type: AI / SaaS · Tone: confident · Theme: dark · Audience: security teams" },
-  { label: "Design system", body: "Primary #22d3ee · Space Grotesk / DM Sans · radius 0.75rem · elevated cards" },
+  { label: "Design system", body: "Primary #8b5cf6 · Space Grotesk / DM Sans · radius 0.35rem · minimal cards" },
   { label: "Section generation", body: "Navbar → Hero → Trusted by → Features → How it works → Pricing → FAQ → CTA → Footer" },
   { label: "Live website", body: "Rendered in the preview, ready to edit and export as HTML, CSS and JS." },
 ];
