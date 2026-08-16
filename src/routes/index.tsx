@@ -136,7 +136,7 @@ function Landing() {
             <div className="flex flex-col gap-4 px-6 py-6 text-sm font-medium text-muted-foreground">
               {NAV.map((item) => (
                 item.href === "/generator" ? (
-                  <Link key={item.href} to={item.href as any} search={{ prompt: "" }} onClick={() => setMenuOpen(false)} className="hover:text-foreground py-2 border-b border-border/50">
+                  <Link key={item.href} to={item.href as any} search={{ prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined }} onClick={() => setMenuOpen(false)} className="hover:text-foreground py-2 border-b border-border/50">
                     {item.label}
                   </Link>
                 ) : (
