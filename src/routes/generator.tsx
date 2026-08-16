@@ -37,10 +37,10 @@ import { saveAs } from "file-saver";
 export const Route = createFileRoute("/generator")({
   validateSearch: (search: Record<string, unknown>) => ({
     prompt: (search["prompt"] as string) || "",
-    siteType: (search["siteType"] as string) || "auto",
-    visualStyle: (search["visualStyle"] as string) || "auto",
-    brandName: (search["brandName"] as string) || "",
-    audience: (search["audience"] as string) || "",
+    siteType: (search["siteType"] as string) || undefined,
+    visualStyle: (search["visualStyle"] as string) || undefined,
+    brandName: (search["brandName"] as string) || undefined,
+    audience: (search["audience"] as string) || undefined,
   }),
   head: () => ({
     meta: [
@@ -99,8 +99,8 @@ function GeneratorWorkspace() {
   const [config, setConfig] = useState<WebsiteConfig | null>(null);
   const [brief, setBrief] = useState<WebsiteBrief>({
     prompt: search.prompt,
-    siteType: search.siteType,
-    visualStyle: search.visualStyle,
+    siteType: search.siteType || "auto",
+    visualStyle: search.visualStyle || "auto",
     brandName: search.brandName,
     audience: search.audience,
   });
@@ -316,7 +316,7 @@ function GeneratorWorkspace() {
               <label className="block">
                 <span className="mb-1 block text-[11px] font-medium text-muted-foreground">Style</span>
                 <select
-                  value={brief.visualStyle ?? "auto"}
+                  value={brief.visualStyle || "auto"}
                   onChange={(e) => setBrief({ ...brief, visualStyle: e.target.value })}
                   className="w-full rounded-md border border-input bg-background p-2 text-xs capitalize outline-none focus:ring-2 focus:ring-ring/40"
                 >
