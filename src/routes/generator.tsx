@@ -579,23 +579,23 @@ function GeneratorWorkspace() {
               <span className="hidden text-sm font-bold tracking-tight sm:inline-block">Workspace</span>
             </div>
           </div>
-            <div className="hidden items-center gap-1 rounded border border-border bg-muted p-1 sm:flex">
-              {([
-                ["desktop", Monitor],
-                ["tablet", Tablet],
-                ["mobile", Smartphone],
-              ] as const).map(([key, Icon]) => (
-                <button
-                  key={key}
-                  onClick={() => setViewport(key)}
-                  aria-label={`${key} preview`}
-                  aria-pressed={viewport === key}
-                  className={`rounded p-1.5 transition-all ${viewport === key ? "bg-card text-primary shadow-sm scale-110" : "text-muted-foreground hover:text-foreground"}`}
-                >
-                  <Icon className="size-4" />
-                </button>
-              ))}
-            </div>
+
+          <div className="hidden items-center gap-1 rounded border border-border bg-muted p-1 sm:flex">
+            {([
+              ["desktop", Monitor],
+              ["tablet", Tablet],
+              ["mobile", Smartphone],
+            ] as const).map(([key, Icon]) => (
+              <button
+                key={key}
+                onClick={() => setViewport(key)}
+                aria-label={`${key} preview`}
+                aria-pressed={viewport === key}
+                className={`rounded p-1.5 transition-all ${viewport === key ? "bg-card text-primary shadow-sm scale-110" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                <Icon className="size-4" />
+              </button>
+            ))}
           </div>
 
           <div className="flex items-center gap-2">
