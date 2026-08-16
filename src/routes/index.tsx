@@ -98,7 +98,11 @@ function Landing() {
           
           <nav aria-label="Main" className="hidden items-center gap-10 text-sm font-medium text-muted-foreground md:flex">
             {NAV.map((item) => (
-              item.href.startsWith("/") ? (
+              item.href === "/generator" ? (
+                <Link key={item.href} to={item.href as any} search={{ prompt: "" }} className="transition-colors hover:text-foreground">
+                  {item.label}
+                </Link>
+              ) : item.href.startsWith("/") ? (
                 <Link key={item.href} to={item.href as any} className="transition-colors hover:text-foreground">
                   {item.label}
                 </Link>
@@ -131,9 +135,15 @@ function Landing() {
           <nav aria-label="Mobile" className="border-t border-border md:hidden bg-background">
             <div className="flex flex-col gap-4 px-6 py-6 text-sm font-medium text-muted-foreground">
               {NAV.map((item) => (
-                <Link key={item.href} to={item.href as any} onClick={() => setMenuOpen(false)} className="hover:text-foreground py-2 border-b border-border/50">
-                  {item.label}
-                </Link>
+                item.href === "/generator" ? (
+                  <Link key={item.href} to={item.href as any} search={{ prompt: "" }} onClick={() => setMenuOpen(false)} className="hover:text-foreground py-2 border-b border-border/50">
+                    {item.label}
+                  </Link>
+                ) : (
+                  <Link key={item.href} to={item.href as any} onClick={() => setMenuOpen(false)} className="hover:text-foreground py-2 border-b border-border/50">
+                    {item.label}
+                  </Link>
+                )
               ))}
               <Link to="/start" onClick={() => setMenuOpen(false)} className="bg-primary text-primary-foreground px-4 py-3 rounded text-center font-bold">
                 Start Building
@@ -167,6 +177,7 @@ function Landing() {
               </Link>
               <Link
                 to="/generator"
+                search={{ prompt: "" }}
                 className="inline-flex items-center gap-2 rounded border border-border bg-card/50 px-8 py-4 font-bold backdrop-blur-sm transition-all hover:bg-muted"
               >
                 Open Workspace
