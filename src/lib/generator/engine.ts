@@ -26,34 +26,25 @@ const STYLE_KEYWORDS: Array<[string, string[]]> = [
 ];
 
 const COLOR_MAP: Record<string, string> = {
-  blue: '#3b82f6',
-  indigo: '#6366f1',
   violet: '#8b5cf6',
   purple: '#8b5cf6',
-  green: '#10b981',
-  emerald: '#10b981',
-  teal: '#14b8a6',
-  cyan: '#06b6d4',
-  red: '#ef4444',
-  orange: '#f97316',
   amber: '#f59e0b',
-  pink: '#ec4899',
-  rose: '#f43f5e',
   gold: '#d4af37',
   black: '#111827',
+  slate: '#64748b',
 };
 
 const TYPE_PRIMARY: Record<string, string> = {
-  ai: '#22d3ee',
-  saas: '#4f7cff',
-  agency: '#f97316',
+  ai: '#8b5cf6',
+  saas: '#8b5cf6',
+  agency: '#f59e0b',
   portfolio: '#111827',
-  restaurant: '#c2410c',
+  restaurant: '#f59e0b',
   app: '#8b5cf6',
-  product: '#0ea5e9',
-  event: '#e11d48',
-  creator: '#7c3aed',
-  local: '#0d9488',
+  product: '#8b5cf6',
+  event: '#f59e0b',
+  creator: '#8b5cf6',
+  local: '#f59e0b',
 };
 
 const FONTS: Record<string, { heading: string; body: string }> = {
@@ -189,14 +180,14 @@ export function buildDesignSystem(brief: WebsiteBrief, u: Understanding): Design
 
   return {
     primaryColor,
-    accentColor: u.visualStyle === 'futuristic' ? '#a855f7' : '#10b981',
+    accentColor: u.visualStyle === 'futuristic' ? '#f59e0b' : '#8b5cf6',
     fontFamily: font.body,
     headingFont: font.heading,
-    borderRadius: u.visualStyle === 'bold' ? '0.25rem' : u.visualStyle === 'premium' ? '0.125rem' : '0.75rem',
+    borderRadius: u.visualStyle === 'bold' ? '0.125rem' : u.visualStyle === 'premium' ? '0rem' : '0.35rem',
     theme: u.theme,
-    backgroundColor: isDark ? '#0a0f1c' : u.visualStyle === 'premium' ? '#fbf9f5' : '#ffffff',
+    backgroundColor: isDark ? '#1a1b1e' : u.visualStyle === 'premium' ? '#fbf9f5' : '#ffffff',
     textColor: isDark ? '#f4f7fb' : '#101828',
-    surfaceColor: isDark ? '#111a2e' : u.visualStyle === 'premium' ? '#ffffff' : '#f8fafc',
+    surfaceColor: isDark ? '#222326' : u.visualStyle === 'premium' ? '#ffffff' : '#f8fafc',
     spacing: u.visualStyle === 'minimal' ? 'airy' : 'balanced',
     containerWidth: u.visualStyle === 'editorial' ? '1140px' : '1200px',
     shadow: u.visualStyle === 'minimal' ? 'soft' : 'elevated',
