@@ -414,7 +414,7 @@ function GeneratorWorkspace() {
                   <select
                     value={config.designSystem.buttonStyle}
                     onChange={(e) => updateDesign({ buttonStyle: e.target.value as any })}
-                    className="w-full rounded-md border border-input bg-background p-2 outline-none"
+                    className="w-full rounded border border-input bg-background p-2 outline-none text-xs"
                   >
                     {["solid", "pill", "outline"].map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -426,7 +426,7 @@ function GeneratorWorkspace() {
                   <select
                     value={config.designSystem.cardStyle}
                     onChange={(e) => updateDesign({ cardStyle: e.target.value as any })}
-                    className="w-full rounded-md border border-input bg-background p-2 outline-none"
+                    className="w-full rounded border border-input bg-background p-2 outline-none text-xs"
                   >
                     {["flat", "bordered", "elevated"].map((s) => (
                       <option key={s} value={s}>{s}</option>
@@ -435,7 +435,7 @@ function GeneratorWorkspace() {
                 </label>
               </div>
               {config.strategy && (
-                <ul className="space-y-1 rounded-lg border border-border bg-card p-3 text-[11px] text-muted-foreground">
+                <ul className="space-y-1 rounded border border-border bg-card p-3 text-[11px] text-muted-foreground">
                   {config.strategy.map((line) => (
                     <li key={line} className="flex gap-2">
                       <Check className="mt-0.5 size-3 shrink-0 text-primary" />
@@ -457,7 +457,7 @@ function GeneratorWorkspace() {
                     if (e.target.value) handleAdd(e.target.value);
                     e.currentTarget.selectedIndex = 0;
                   }}
-                  className="rounded-md border border-input bg-background px-2 py-1 text-[11px] capitalize outline-none"
+                  className="rounded border border-input bg-background px-2 py-1 text-[11px] capitalize outline-none"
                   aria-label="Add section"
                 >
                   <option value="">+ Add section</option>
@@ -469,7 +469,7 @@ function GeneratorWorkspace() {
             </div>
 
             {!config && !isGenerating && (
-              <p className="rounded-lg border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
+              <p className="rounded border border-dashed border-border p-6 text-center text-sm text-muted-foreground">
                 No website yet. Describe one above and generate.
               </p>
             )}
