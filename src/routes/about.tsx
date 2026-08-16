@@ -34,7 +34,7 @@ function AboutPage() {
           </Link>
           <nav className="flex items-center gap-6 text-sm font-medium">
             <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">Home</Link>
-            <Link to="/generator" search={{ prompt: "" }} className="text-muted-foreground hover:text-foreground transition-colors">Generator</Link>
+            <Link to="/generator" search={{ prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined }} className="text-muted-foreground hover:text-foreground transition-colors">Generator</Link>
             <Link to="/start" className="rounded bg-primary px-4 py-2 text-primary-foreground hover:opacity-90 transition-opacity">
               Start Building
             </Link>
@@ -110,7 +110,7 @@ function AboutPage() {
                       <p className="text-xs text-muted-foreground">August 2026 – Present</p>
                     </div>
                   </div>
-                  <Link to="/generator" search={{ prompt: "" }} className="text-primary hover:underline text-sm font-medium inline-flex items-center gap-1">
+                  <Link to="/generator" search={{ prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined }} className="text-primary hover:underline text-sm font-medium inline-flex items-center gap-1">
                     View Project <ExternalLink className="size-3" />
                   </Link>
                 </div>

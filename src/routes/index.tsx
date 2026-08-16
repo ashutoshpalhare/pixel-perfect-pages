@@ -99,7 +99,7 @@ function Landing() {
           <nav aria-label="Main" className="hidden items-center gap-10 text-sm font-medium text-muted-foreground md:flex">
             {NAV.map((item) => (
               item.href === "/generator" ? (
-                <Link key={item.href} to={item.href as any} search={{ prompt: "" }} className="transition-colors hover:text-foreground">
+                <Link key={item.href} to={item.href as any} search={{ prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined }} className="transition-colors hover:text-foreground">
                   {item.label}
                 </Link>
               ) : item.href.startsWith("/") ? (
@@ -177,7 +177,7 @@ function Landing() {
               </Link>
               <Link
                 to="/generator"
-                search={{ prompt: "" }}
+                search={{ prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined }}
                 className="inline-flex items-center gap-2 rounded border border-border bg-card/50 px-8 py-4 font-bold backdrop-blur-sm transition-all hover:bg-muted"
               >
                 Open Workspace
