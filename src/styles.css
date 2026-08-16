@@ -8,60 +8,54 @@
   tokens; components must never hardcode colours.
 */
 :root {
-  --background: oklch(0.16 0.017 265);
-  --foreground: oklch(0.97 0.005 265);
+  /* Obsidian Base Palette */
+  --background: oklch(0.18 0.02 265);
+  --foreground: oklch(0.96 0.01 70);
 
-  --card: oklch(0.2 0.019 265);
-  --card-foreground: oklch(0.97 0.005 265);
+  --card: oklch(0.22 0.02 265);
+  --card-foreground: oklch(0.96 0.01 70);
 
-  --popover: oklch(0.2 0.019 265);
-  --popover-foreground: oklch(0.97 0.005 265);
+  --popover: oklch(0.22 0.02 265);
+  --popover-foreground: oklch(0.96 0.01 70);
 
-  --primary: oklch(0.79 0.14 187);
-  --primary-foreground: oklch(0.18 0.03 200);
+  /* Primary: Violet */
+  --primary: oklch(0.6 0.25 295);
+  --primary-foreground: oklch(0.98 0.01 295);
 
-  --secondary: oklch(0.26 0.02 265);
-  --secondary-foreground: oklch(0.97 0.005 265);
+  --secondary: oklch(0.28 0.02 265);
+  --secondary-foreground: oklch(0.96 0.01 70);
 
-  --muted: oklch(0.24 0.018 265);
-  --muted-foreground: oklch(0.7 0.015 265);
+  --muted: oklch(0.28 0.02 265);
+  --muted-foreground: oklch(0.7 0.02 265);
 
-  --accent: oklch(0.82 0.16 82);
-  --accent-foreground: oklch(0.2 0.03 82);
+  /* Secondary Accent: Amber/Gold */
+  --accent: oklch(0.8 0.15 85);
+  --accent-foreground: oklch(0.2 0.02 85);
 
-  --destructive: oklch(0.63 0.19 22);
-  --destructive-foreground: oklch(0.98 0.005 265);
+  --destructive: oklch(0.6 0.25 30);
+  --destructive-foreground: oklch(0.96 0.01 70);
 
-  --border: oklch(0.3 0.018 265);
-  --input: oklch(0.3 0.018 265);
-  --ring: oklch(0.79 0.14 187);
+  --border: oklch(0.28 0.02 265);
+  --input: oklch(0.28 0.02 265);
+  --ring: oklch(0.6 0.25 295);
 
-  --sidebar: oklch(0.18 0.018 265);
-  --sidebar-foreground: oklch(0.97 0.005 265);
-  --sidebar-primary: oklch(0.79 0.14 187);
-  --sidebar-primary-foreground: oklch(0.18 0.03 200);
-  --sidebar-accent: oklch(0.24 0.018 265);
-  --sidebar-accent-foreground: oklch(0.97 0.005 265);
-  --sidebar-border: oklch(0.3 0.018 265);
-  --sidebar-ring: oklch(0.79 0.14 187);
+  --sidebar: oklch(0.20 0.02 265);
+  --sidebar-foreground: oklch(0.96 0.01 70);
+  --sidebar-primary: oklch(0.6 0.25 295);
+  --sidebar-primary-foreground: oklch(0.98 0.01 295);
+  --sidebar-accent: oklch(0.28 0.02 265);
+  --sidebar-accent-foreground: oklch(0.96 0.01 70);
+  --sidebar-border: oklch(0.28 0.02 265);
+  --sidebar-ring: oklch(0.6 0.25 295);
 
-  --radius: 0.75rem;
+  --radius: 0.35rem;
 
   --font-display: "Space Grotesk", system-ui, sans-serif;
   --font-body: "DM Sans", system-ui, sans-serif;
 
-  --gradient-hero: radial-gradient(
-    ellipse 80% 60% at 50% -10%,
-    color-mix(in oklab, var(--primary) 26%, transparent),
-    transparent 70%
-  );
-  --gradient-primary: linear-gradient(
-    135deg,
-    var(--primary),
-    color-mix(in oklab, var(--primary) 55%, var(--accent))
-  );
-  --shadow-elevated: 0 24px 60px -24px oklch(0 0 0 / 0.75);
-  --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.4), 0 12px 32px -20px oklch(0 0 0 / 0.6);
+  --gradient-hero: radial-gradient(ellipse 80% 60% at 50% -10%, color-mix(in oklab, var(--primary) 20%, transparent), transparent 70%);
+  --shadow-soft: 0 1px 2px rgba(0,0,0,0.1);
+  --shadow-elevated: 0 4px 12px rgba(0,0,0,0.2);
 }
 
 .light {
@@ -152,7 +146,7 @@
 }
 
 @utility text-gradient {
-  background-image: var(--gradient-primary);
+  background: linear-gradient(to right, var(--primary), var(--accent));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
