@@ -727,6 +727,7 @@ function CodeViewer({
     codeToHtml(source, {
       lang,
       theme: "vitesse-dark",
+      structure: "classic",
     }).then((html) => {
       if (active) setHighlighted(html);
     });
