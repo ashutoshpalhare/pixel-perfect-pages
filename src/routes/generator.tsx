@@ -528,7 +528,7 @@ function GeneratorWorkspace() {
                         if (e.target.value) void handleRefine(section, e.target.value);
                         e.currentTarget.selectedIndex = 0;
                       }}
-                      className="rounded-md border border-input bg-background px-1.5 py-1 text-[11px] outline-none"
+                      className="rounded border border-input bg-background px-1.5 py-1 text-[11px] outline-none"
                       aria-label="AI refinement"
                     >
                       <option value="">AI refine…</option>
