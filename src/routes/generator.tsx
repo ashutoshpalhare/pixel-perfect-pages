@@ -566,10 +566,19 @@ function GeneratorWorkspace() {
       {/* ------------------------------------------------------------ Main */}
       <main className="relative flex min-w-0 flex-1 flex-col">
         <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border bg-background px-6 shadow-sm">
-          <div className="flex items-center gap-2">
-            <button onClick={() => setSidebarOpen(true)} className="rounded-md border border-border p-1.5 lg:hidden" aria-label="Open panel">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate({ to: "/" })}
+              className="flex size-7 items-center justify-center rounded border border-border bg-card text-muted-foreground transition-colors hover:text-foreground active:scale-95"
+              aria-label="Back to home"
+            >
               <ChevronLeft className="size-4" />
             </button>
+            <div className="flex items-center gap-2">
+              <span className="flex size-6 items-center justify-center rounded bg-primary text-[10px] font-bold text-primary-foreground shadow-sm shadow-primary/20">W</span>
+              <span className="hidden text-sm font-bold tracking-tight sm:inline-block">Workspace</span>
+            </div>
+          </div>
             <div className="hidden items-center gap-1 rounded border border-border bg-muted p-1 sm:flex">
               {([
                 ["desktop", Monitor],
