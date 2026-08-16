@@ -348,7 +348,7 @@ function Landing() {
             <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
               {NAV.map((n) => (
                 <li key={n.href}>
-                  <Link to={n.href as any} search={n.href === "/generator" ? { prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined } : undefined} className="hover:text-foreground">
+                  <Link to={n.href as any} search={n.href === "/generator" ? { prompt: "", siteType: undefined, visualStyle: undefined, brandName: undefined, audience: undefined } : (undefined as any)} className="hover:text-foreground">
                     {n.label}
                   </Link>
                 </li>
