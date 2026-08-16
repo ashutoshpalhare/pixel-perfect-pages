@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { codeToHtml } from "shiki";
 import {
@@ -97,6 +97,7 @@ const STYLES = ["modern", "minimal", "premium", "bold", "editorial", "futuristic
 
 function GeneratorWorkspace() {
   const search = Route.useSearch();
+  const navigate = useNavigate();
   const [config, setConfig] = useState<WebsiteConfig | null>(null);
   const [brief, setBrief] = useState<WebsiteBrief>({
     prompt: search.prompt,
