@@ -306,7 +306,7 @@ function GeneratorWorkspace() {
               onChange={(e) => setBrief({ ...brief, prompt: e.target.value })}
               rows={3}
               placeholder="Describe the website…"
-              className="w-full resize-none rounded-lg border border-input bg-background p-2.5 text-sm outline-none focus:ring-2 focus:ring-ring/40"
+              className="w-full resize-none rounded border border-input bg-background p-2.5 text-sm outline-none focus:ring-1 focus:ring-primary/40"
             />
             <div className="grid grid-cols-2 gap-2">
               <Field label="Business name" value={brief.brandName ?? ""} onChange={(v) => setBrief({ ...brief, brandName: v })} />
@@ -319,7 +319,7 @@ function GeneratorWorkspace() {
                 <select
                   value={brief.visualStyle || "auto"}
                   onChange={(e) => setBrief({ ...brief, visualStyle: e.target.value })}
-                  className="w-full rounded-md border border-input bg-background p-2 text-xs capitalize outline-none focus:ring-2 focus:ring-ring/40"
+                  className="w-full rounded border border-input bg-background p-2 text-xs capitalize outline-none focus:ring-1 focus:ring-primary/40"
                 >
                   {["auto", ...STYLES].map((s) => (
                     <option key={s} value={s}>{s}</option>
@@ -335,7 +335,7 @@ function GeneratorWorkspace() {
             <button
               onClick={() => void generate(brief)}
               disabled={isGenerating}
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="inline-flex w-full items-center justify-center gap-2 rounded bg-primary px-4 py-2.5 text-sm font-bold text-primary-foreground transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50"
             >
               {isGenerating ? <Loader2 className="size-4 animate-spin" /> : <Wand2 className="size-4" />}
               {config ? "Regenerate website" : "Generate website"}
@@ -564,12 +564,12 @@ function GeneratorWorkspace() {
 
       {/* ------------------------------------------------------------ Main */}
       <main className="relative flex min-w-0 flex-1 flex-col">
-        <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border bg-card px-3 sm:px-5">
+        <header className="flex h-14 shrink-0 items-center justify-between gap-2 border-b border-border bg-background px-6 shadow-sm">
           <div className="flex items-center gap-2">
             <button onClick={() => setSidebarOpen(true)} className="rounded-md border border-border p-1.5 lg:hidden" aria-label="Open panel">
               <ChevronLeft className="size-4" />
             </button>
-            <div className="hidden items-center gap-1 rounded-lg border border-border bg-muted p-1 sm:flex">
+            <div className="hidden items-center gap-1 rounded border border-border bg-muted p-1 sm:flex">
               {([
                 ["desktop", Monitor],
                 ["tablet", Tablet],
@@ -580,7 +580,7 @@ function GeneratorWorkspace() {
                   onClick={() => setViewport(key)}
                   aria-label={`${key} preview`}
                   aria-pressed={viewport === key}
-                  className={`rounded-md p-1.5 transition-colors ${viewport === key ? "bg-card text-primary shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`rounded p-1.5 transition-all ${viewport === key ? "bg-card text-primary shadow-sm scale-110" : "text-muted-foreground hover:text-foreground"}`}
                 >
                   <Icon className="size-4" />
                 </button>
@@ -592,14 +592,14 @@ function GeneratorWorkspace() {
             <button
               onClick={() => setShowCode(true)}
               disabled={!config}
-              className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:bg-muted disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded border border-border px-4 py-2 text-[11px] font-bold transition-all hover:bg-muted active:scale-95 disabled:opacity-50"
             >
               <Code2 className="size-4" /> <span className="hidden sm:inline">Code</span>
             </button>
             <button
               onClick={() => void handleExport()}
               disabled={!config}
-              className="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90 disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded bg-primary px-4 py-2 text-[11px] font-bold text-primary-foreground transition-all hover:opacity-95 active:scale-95 disabled:opacity-50 shadow-md shadow-primary/10"
             >
               <Download className="size-4" /> <span className="hidden sm:inline">Export ZIP</span>
             </button>
@@ -630,7 +630,7 @@ function GeneratorWorkspace() {
 
           {config && (
             <div className={`mx-auto flex flex-col ${frameWidth} transition-all duration-500`}>
-              <div className="flex items-center gap-2 rounded-t-xl border border-border bg-card p-2">
+              <div className="flex items-center gap-2 rounded-t border border-border bg-card px-4 py-2.5">
                 <span className="ml-1 flex gap-1.5">
                   <span className="size-2.5 rounded-full bg-primary/60" />
                   <span className="size-2.5 rounded-full bg-accent/60" />
@@ -646,7 +646,7 @@ function GeneratorWorkspace() {
               <iframe
                 ref={iframeRef}
                 title="Generated website preview"
-                className="h-[70vh] w-full rounded-b-xl border border-t-0 border-border bg-white lg:h-[calc(100vh-8rem)]"
+                className="h-[70vh] w-full rounded-b border border-t-0 border-border bg-white lg:h-[calc(100vh-8rem)]"
               />
             </div>
           )}
@@ -673,7 +673,7 @@ function Field({ label, value, onChange }: { label: string; value: string; onCha
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded-md border border-input bg-background p-2 text-xs outline-none focus:ring-2 focus:ring-ring/40"
+        className="w-full rounded border border-input bg-background p-2 text-xs outline-none focus:ring-1 focus:ring-primary/40"
       />
     </label>
   );
