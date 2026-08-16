@@ -15,6 +15,7 @@ import {
   Sparkles,
   Wand2,
   X,
+  Github,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -39,10 +40,8 @@ export const Route = createFileRoute("/")({
 });
 
 const NAV = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Examples", href: "#examples" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Generate", href: "/generator" },
+  { label: "About", href: "/about" },
 ];
 
 const STEPS = [
@@ -90,83 +89,93 @@ function Landing() {
 
   return (
     <div className="min-h-screen">
-      {/* Navbar */}
-      <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-xl">
-        <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4">
-          <a href="#top" className="flex items-center gap-2 font-semibold">
-            <span className="flex size-8 items-center justify-center rounded-lg bg-primary font-bold text-primary-foreground">W</span>
-            <span className="font-display text-lg">WebGen AI</span>
-          </a>
-          <nav aria-label="Main" className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
+      <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/60 backdrop-blur-md transition-all">
+        <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-4">
+          <Link to="/" className="flex items-center gap-2 group">
+            <span className="flex size-8 items-center justify-center rounded bg-primary font-bold text-primary-foreground group-hover:scale-105 transition-transform">W</span>
+            <span className="font-display text-lg font-semibold tracking-tight">WebGen AI</span>
+          </Link>
+          
+          <nav aria-label="Main" className="hidden items-center gap-10 text-sm font-medium text-muted-foreground md:flex">
             {NAV.map((item) => (
-              <a key={item.href} href={item.href} className="transition-colors hover:text-foreground">
-                {item.label}
-              </a>
+              item.href.startsWith("/") ? (
+                <Link key={item.href} to={item.href as any} className="transition-colors hover:text-foreground">
+                  {item.label}
+                </Link>
+              ) : (
+                <a key={item.href} href={item.href} className="transition-colors hover:text-foreground">
+                  {item.label}
+                </a>
+              )
             ))}
+            <a href="https://github.com/ashutoshpalhare" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-foreground">
+              <Github className="size-4" />
+            </a>
           </nav>
-          <div className="flex items-center gap-2">
-            <Link
-              to="/start"
-              className="inline-flex items-center gap-1.5 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-            >
-              Get started
+
+          <div className="flex items-center gap-4">
+            <Link to="/start" className="hidden sm:inline-flex items-center gap-1.5 rounded bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90 active:scale-[0.98]">
+              Start Building
             </Link>
             <button
               onClick={() => setMenuOpen((v) => !v)}
               aria-expanded={menuOpen}
               aria-label="Toggle navigation"
-              className="rounded-lg border border-border p-2 md:hidden"
+              className="rounded p-2 text-muted-foreground hover:bg-muted md:hidden border border-border"
             >
-              {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+              {menuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
             </button>
           </div>
         </div>
         {menuOpen && (
-          <nav aria-label="Mobile" className="border-t border-border md:hidden">
-            <div className="mx-auto flex w-full max-w-6xl flex-col gap-3 px-5 py-4 text-sm text-muted-foreground">
+          <nav aria-label="Mobile" className="border-t border-border md:hidden bg-background">
+            <div className="flex flex-col gap-4 px-6 py-6 text-sm font-medium text-muted-foreground">
               {NAV.map((item) => (
-                <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)} className="hover:text-foreground">
+                <Link key={item.href} to={item.href as any} onClick={() => setMenuOpen(false)} className="hover:text-foreground py-2 border-b border-border/50">
                   {item.label}
-                </a>
+                </Link>
               ))}
+              <Link to="/start" onClick={() => setMenuOpen(false)} className="bg-primary text-primary-foreground px-4 py-3 rounded text-center font-bold">
+                Start Building
+              </Link>
             </div>
           </nav>
         )}
       </header>
 
       <main id="top">
-        {/* Hero */}
-        <section className="relative overflow-hidden">
+        <section className="relative pt-32 pb-20 overflow-hidden min-h-[90vh] flex items-center">
           <div className="pointer-events-none absolute inset-0 hero-glow" aria-hidden="true" />
-          <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.35]" aria-hidden="true" />
-          <div className="relative mx-auto w-full max-w-6xl px-5 pb-20 pt-20 text-center sm:pt-28">
-            <p className="mx-auto inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-              <Sparkles className="size-3.5 text-primary" /> Prompt → AI → Website
-            </p>
-            <h1 className="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-[1.05] sm:text-6xl">
-              From idea to website.{" "}
-              <span className="text-gradient">In minutes.</span>
+          <div className="pointer-events-none absolute inset-0 grid-backdrop opacity-[0.2]" aria-hidden="true" />
+          <div className="relative mx-auto w-full max-w-5xl px-6 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-4 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-sm animate-in fade-in slide-in-from-bottom-4">
+              <Sparkles className="size-3.5 text-primary" /> Describe your website. Get a complete website.
+            </div>
+            <h1 className="mx-auto mt-8 max-w-4xl text-5xl font-bold leading-[1.1] sm:text-7xl tracking-tight font-display text-foreground">
+              The engine for <span className="text-gradient">high-performance</span> web sites.
             </h1>
-            <p className="mx-auto mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Describe your product, business or idea and generate a polished, responsive single-page website with AI. Then edit,
-              preview and export clean HTML, CSS and JavaScript.
+            <p className="mx-auto mt-8 max-w-2xl text-lg text-muted-foreground/80 leading-relaxed font-sans">
+              A developer-focused AI generator that crafts responsive single-page websites from natural language. 
+              Plans structure, designs systems, and exports clean, vanilla code.
             </p>
-            <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <div className="mt-12 flex flex-wrap justify-center gap-4">
               <Link
                 to="/start"
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[var(--shadow-soft)] transition-transform hover:opacity-90 active:scale-[0.99]"
+                className="inline-flex items-center gap-2 rounded bg-primary px-8 py-4 font-bold text-primary-foreground shadow-lg shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
-                Get started <ArrowRight className="size-4" />
+                Start Building <ArrowRight className="size-4" />
               </Link>
-              <a
-                href="#how-it-works"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-6 py-3 font-semibold transition-colors hover:bg-muted"
+              <Link
+                to="/generator"
+                className="inline-flex items-center gap-2 rounded border border-border bg-card/50 px-8 py-4 font-bold backdrop-blur-sm transition-all hover:bg-muted"
               >
-                See how it works
-              </a>
+                Open Workspace
+              </Link>
             </div>
 
-            <WorkspaceMockup />
+            <div className="mt-20 relative animate-in fade-in zoom-in duration-700">
+               <WorkspaceMockup />
+            </div>
           </div>
         </section>
 
