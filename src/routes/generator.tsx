@@ -478,7 +478,7 @@ function GeneratorWorkspace() {
               const variants = getBlocksByCategory(section.type);
               const isEditing = editingSection === section.id;
               return (
-                <div key={section.id} className="rounded-lg border border-border bg-card p-3">
+                <div key={section.id} className="rounded border border-border bg-card p-3 shadow-sm">
                   <div className="flex items-center justify-between gap-2">
                     <span className="flex items-center gap-2 text-sm font-medium capitalize">
                       <span className="size-1.5 rounded-full bg-primary" />
