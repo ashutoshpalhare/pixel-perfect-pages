@@ -656,7 +656,7 @@ function GeneratorWorkspace() {
       {showCode && code && <CodeViewer code={code} name={config?.name ?? "site"} onClose={() => setShowCode(false)} onCopied={notify} />}
 
       {toast && (
-        <div role="status" className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded-lg border border-border bg-card px-4 py-2 text-sm shadow-lg">
+        <div role="status" className="fixed bottom-5 left-1/2 z-50 -translate-x-1/2 rounded border border-border bg-card px-4 py-2 text-sm font-medium shadow-xl">
           {toast}
         </div>
       )}
@@ -673,7 +673,7 @@ function Field({ label, value, onChange }: { label: string; value: string; onCha
       <input
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full rounded border border-input bg-background p-2 text-xs outline-none focus:ring-1 focus:ring-primary/40"
+        className="w-full rounded border border-input bg-background p-2 text-xs outline-none focus:ring-1 focus:ring-primary/40 transition-shadow"
       />
     </label>
   );
